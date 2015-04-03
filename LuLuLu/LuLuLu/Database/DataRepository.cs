@@ -27,6 +27,8 @@ namespace LuLuLu
 		}
 
 		private static readonly SQLiteAsyncConnection conn;
+
+		public static event EventHandler DatabaseUpdated;
 		
 		static DataRepository()
 		{
@@ -36,9 +38,8 @@ namespace LuLuLu
 
 		public static AsyncTableQuery<Record> GetRecord(RecordMode mode)
 		{
-			var recMode = (int)mode;
 			return from r in conn.Table<Record>()
-					where r.RecordMode == recMode
+					where r.Mode == mode
 				select r;			
 		}
 
@@ -49,23 +50,33 @@ namespace LuLuLu
 					select r;			
 		}
 
-		public static Task Insert(Record rec,IEnumerable<RecordPoint> points)
+		public static async Task Insert(Record rec,IEnumerable<RecordPoint> points)
 		{
-			return conn.RunInTransactionAsync (new Action<SQLiteConnection>((connection) =>   {
+			await conn.RunInTransactionAsync (new Action<SQLiteConnection>((connection) =>   {
 				connection.Insert(rec);
 				foreach (var p in points) {
 					p.RecordId = rec.Id;
 					connection.Insert(p);
 				}
 			}));
+
+			if (DatabaseUpdated != null) {
+				Console.WriteLine ("Raise updated event");
+				DatabaseUpdated (null, EventArgs.Empty);
+				Console.WriteLine ("Raise updated event END");
+			}
 		}
 
-		public static Task Delete(Record rec)
+		public static async Task Delete(Record rec)
 		{
-			return conn.RunInTransactionAsync (new Action<SQLiteConnection>((connection) =>   {
+			await conn.RunInTransactionAsync (new Action<SQLiteConnection>((connection) =>   {
 				connection.Execute("DELETE FROM RecordPoint where RecordId = ? ",rec.Id);
 				connection.Delete(rec);
 			}));
+
+			if (DatabaseUpdated != null) {
+				DatabaseUpdated (null, EventArgs.Empty);
+			}
 		}
 
 	}

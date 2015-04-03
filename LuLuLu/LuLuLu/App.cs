@@ -9,23 +9,17 @@ namespace LuLuLu
 {
 	public class App : Application
 	{
-		public ILuDetector Detector {
-			get;
-			private set;
-		}
-
 		public App ()
 		{
 			// The root page of your application
 
-			MainPage = new LuLuLu.MainPage ();
+			MainPage = new NavigationPage( new LuLuLu.MainPage () );
 
 		}
 
 		protected override void OnStart ()
 		{
 			// Handle when your app starts
-			Detector = DependencyService.Get<ILuDetector>();
 		}
 
 		protected override void OnSleep ()

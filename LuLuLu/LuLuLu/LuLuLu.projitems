@@ -25,10 +25,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)Database\SQLiteAsync.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Database\DataRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LuingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RecordItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DetailPage.xaml.cs">
+      <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)RecordDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)DetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

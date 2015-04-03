@@ -6,6 +6,7 @@ namespace LuLuLu
 {
 	public enum RecordMode
 	{
+		Default = 0,
 		Speed = 0,
 		Survival,
 		Ghost
@@ -39,21 +40,9 @@ namespace LuLuLu
 		}
 
 		[Column("Mode"),NotNull]
-		internal int RecordMode {
+		public RecordMode Mode {
 			get;
 			set;
-		}
-
-		[Ignore]
-		public RecordMode Mode {
-			get	{
-				return (RecordMode)RecordMode;
-			}
-
-			set {
-				RecordMode = (int)value;
-			}
-				
 		}
 
 		//@ForeignCollectionField(eager = true,columnName = RecordPoint.RECORD_FK_COLUMN_NAME)
@@ -61,6 +50,7 @@ namespace LuLuLu
 
 		public Record ()
 		{
+			Mode =  RecordMode.Default;
 		}
 	}
 }

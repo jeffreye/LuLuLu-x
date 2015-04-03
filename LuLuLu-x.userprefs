@@ -1,29 +1,24 @@
 ﻿<Properties StartupItem="LuLuLu\LuLuLu.Droid\LuLuLu.Droid.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.007397a0960b4be5" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="LuLuLu\LuLuLu.Droid\LuDetector.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="j:\github\LuLuLu-x\LuLuLu\LuLuLu\LuingPage.xaml.cs">
     <Files>
-      <File FileName="LuLuLu\LuLuLu\LuingPage.xaml.cs" Line="67" Column="43" />
-      <File FileName="LuLuLu\LuLuLu\LuingViewModel.cs" Line="35" Column="26" />
-      <File FileName="LuLuLu\LuLuLu\LuingPage.xaml" Line="10" Column="15" />
-      <File FileName="LuLuLu\LuLuLu.Droid\LuDetector.cs" Line="42" Column="5" />
+      <File FileName="LuLuLu\LuLuLu\LuingViewModel.cs" Line="13" Column="1" />
+      <File FileName="j:\github\LuLuLu-x\LuLuLu\LuLuLu\LuingPage.xaml.cs" Line="56" Column="26" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="LuLuLu" expanded="True">
-            <Node name="Database" expanded="True" />
-            <Node name="LuingPage.xaml" expanded="True" />
-          </Node>
+          <Node name="LuLuLu" expanded="True" />
           <Node name="LuLuLu.Droid" expanded="True">
             <Node name="References" expanded="True" />
-            <Node name="LuDetector.cs" selected="True" />
           </Node>
-          <Node name="LuLuLu.iOS" expanded="True" />
-          <Node name="LuLuLu.WinPhone" expanded="True" />
+          <Node name="LuLuLu.iOS" selected="True" />
+          <Node name="LuLuLu.WinPhone" expanded="True">
+            <Node name="Properties" expanded="True" />
+            <Node name="App.xaml" expanded="True" />
+            <Node name="MainPage.xaml" expanded="True" />
+          </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

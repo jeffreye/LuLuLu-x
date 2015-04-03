@@ -17,7 +17,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# Binaries
+# Binaries and Objects
 bin/
 obj/
 
@@ -45,3 +45,4 @@ obj/
 Network Trash Folder
 Temporary Items
 .apdisk
+LuLuLu-x.userprefs

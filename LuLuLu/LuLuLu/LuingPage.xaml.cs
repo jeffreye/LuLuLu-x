@@ -28,15 +28,12 @@ namespace LuLuLu
 		{
 			base.OnAppearing ();
 
-			var app = Application.Current as App;
-			if (app != null)
-			{
-				detector = app.Detector;
-			}
 			vm = new LuingViewModel();
 			countLabel.BindingContext = vm;
 
-			if (detector!= null) {
+
+			detector = DependencyService.Get<ILuDetector>();
+			if (detector != null) {
 				detector.Tick += Detector_Tick;
 
 				detector.Start ();
@@ -47,13 +44,14 @@ namespace LuLuLu
 				StartDateTime = DateTime.Now
 			};
 			points = new List<RecordPoint> (512);
+
 			Device.StartTimer (TimeSpan.FromMilliseconds (RecordInterval), DoRecord);
 		}
 
 		protected override void OnDisappearing ()
 		{
 			base.OnDisappearing ();
-			if (detector!= null) {
+			if (detector != null) {
 				detector.Stop ();
 
 				detector.Tick -= Detector_Tick;
@@ -63,7 +61,6 @@ namespace LuLuLu
 			record.Count = vm.Count;
 			record.Duration = DateTime.Now - record.StartDateTime;
 			DataRepository.Insert (record, points.AsReadOnly());
-
 		}
 
 		void Detector_Tick (object sender, EventArgs e)
@@ -88,17 +85,6 @@ namespace LuLuLu
 			}
 
 			return IsVisible;
-		}
-
-		protected override bool OnBackButtonPressed ()
-		{
-			Navigation.PopModalAsync ();
-			return base.OnBackButtonPressed ();
-		}
-
-		void OnBackButtonClicked(object sender,EventArgs args)
-		{
-			OnBackButtonPressed ();
 		}
 	}
 }
