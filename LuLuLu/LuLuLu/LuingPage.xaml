@@ -4,7 +4,9 @@
              xmlns:local="clr-namespace:LuLuLu;assembly=LuLuLu"
              x:Class="LuLuLu.LuingPage"
              Title="Jerk off" >
-  <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill">
-	<Label x:Name="countLabel" Text="{Binding Count}" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+  <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Fill">
+	<Label Text="You have jerked" VerticalOptions="Start" HorizontalOptions="Center" FontSize="32" />
+	<Label x:Name="countLabel" Text="{Binding Count}" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" FontSize="64" FontAttributes="Bold" />
+	<Label Text="Times" VerticalOptions="End" HorizontalOptions="Center" FontSize="32"/>
   </StackLayout>
 </ContentPage>

@@ -20,31 +20,34 @@ namespace LuLuLu
 				string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal); // Documents folder
 				var path = Path.Combine(documentsPath, DatabaseName);
 				#elif WINDOWS_PHONE
-				var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, DatabaseName);
+				var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, DatabaseName);
 				#endif
 				return path;
 			}
 		}
 
 		private static readonly SQLiteAsyncConnection conn;
+		private static Task createTask;
 
 		public static event EventHandler DatabaseUpdated;
 		
 		static DataRepository()
 		{
 			conn = new SQLiteAsyncConnection (DatabasePath);
-			conn.CreateTablesAsync<Record,RecordPoint> ();
+			createTask = conn.CreateTablesAsync<Record, RecordPoint>();
 		}
 
-		public static AsyncTableQuery<Record> GetRecord(RecordMode mode)
+		public static async Task<AsyncTableQuery<Record>> GetRecord(RecordMode mode)
 		{
+			await createTask;
 			return from r in conn.Table<Record>()
 					where r.Mode == mode
 				select r;			
 		}
 
-		public static AsyncTableQuery<RecordPoint> GetRecordData(Record rec)
+		public static async Task<AsyncTableQuery<RecordPoint>> GetRecordData(Record rec)
 		{
+			await createTask;
 			return from r in conn.Table<RecordPoint>()
 					where r.RecordId == rec.Id
 					select r;			
@@ -61,9 +64,7 @@ namespace LuLuLu
 			}));
 
 			if (DatabaseUpdated != null) {
-				Console.WriteLine ("Raise updated event");
 				DatabaseUpdated (null, EventArgs.Empty);
-				Console.WriteLine ("Raise updated event END");
 			}
 		}
 

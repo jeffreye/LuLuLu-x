@@ -20,6 +20,11 @@ namespace LuLuLu
 			base.OnAppearing ();
 			DataRepository.DatabaseUpdated += DataRepository_DatabaseUpdated;
 			recordList.RefreshCommand = new Command (RefreshItemSource);
+
+			if (recordList.ItemsSource == null)
+			{
+				recordList.BeginRefresh();
+			}
 		}
 
 		protected override void OnDisappearing ()
@@ -38,11 +43,15 @@ namespace LuLuLu
 		private async void RefreshItemSource(object obj)
 		{
 			try {
-				var records = await DataRepository.GetRecord (RecordMode.Default).ToListAsync();
+
+				var recordQuery = await DataRepository.GetRecord (RecordMode.Default);
+				var records = await recordQuery.ToListAsync();
+
 				recordList.ItemsSource = records.Select (rec => new RecordItemViewModel (rec)).ToList().AsReadOnly();
+
 				Console.WriteLine("[ListView] Refresh done");
 			} catch (Exception ex) {
-				Console.WriteLine ("[ListView] Refresh error: "+ex.Message);
+				Console.WriteLine ("[ListView] Refresh error: " + ex.Message);
 			}
 			finally {
 				recordList.EndRefresh ();
